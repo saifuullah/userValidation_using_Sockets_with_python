@@ -36,5 +36,30 @@ class DBManager():
         users = cur.fetchall()
         return users
 
+    
+    def authorize(self, uname, upass, r):
+        
+        #Locate the resource of the user
+
+        rIndex = 0
+        
+        if (r=="r1"):
+            rIndex = 3
+        elif (r == "r2"):
+            rIndex = 4
+        elif (r == "r3"):
+            rIndex = 5 
+
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM users")
+        users = cur.fetchall()
+        for user in users:
+            if (user[1] == uname and user[2] == upass and user[rIndex] == "yes"):
+                #User found, permission granted 
+                msg = str(user[1]) + " Has access to the resource R " + str(rIndex-2)
+                return msg
+
+
+    
 
 

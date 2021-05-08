@@ -36,6 +36,11 @@ class myThread(Thread):
             data = pickle.dumps(data)
             self.cli.send(data)
 
+        if data[0] == "auth":
+            res = self.db.authorize(data[1], data[2], data[3])
+            data = pickle.dumps(res)
+            self.cli.send(data)   
+
             
 
 

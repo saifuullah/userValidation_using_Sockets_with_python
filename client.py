@@ -25,9 +25,9 @@ while(n==0):
         dataList = []
         uname = input("Enter username : ")
         upass = input("Enter password : ")
-        r1 = input("Please confirm, this user can access Resource 1 ?? (yes or no)")
-        r2 = input("Please confirm, this user can access Resource 2 ?? (yes or no)")
-        r3 = input("Please confirm, this user can access Resource 3 ?? (yes or no)")
+        r1 = input("Please confirm, this user can access Resource 1 ?? (yes or no) : ")
+        r2 = input("Please confirm, this user can access Resource 2 ?? (yes or no) : ")
+        r3 = input("Please confirm, this user can access Resource 3 ?? (yes or no) : ")
         
         r1, r2, r3 = r1.lower(), r2.lower(), r3.lower()
         flag = "add"
@@ -69,6 +69,28 @@ while(n==0):
         messg = cli.recv(1024)
         decodeMsg = pickle.loads(messg)
         print(decodeMsg)
+
+    elif choice == 3:
+        print("\nAuthorization ......")
+        uname = input("Enter the Username : ")
+        upass = input("Enter password     : ")
+        r = input("Which resource do you want to use (r1, r2, r3) : ")
+
+        dataList = []
+        flag = "auth"
+        dataList.append(flag)
+        dataList.append(uname)
+        dataList.append(upass)
+        dataList.append(r)
+        buff = pickle.dumps(dataList)
+        cli.send(buff)
+        print("\nPlease wait.....")
+        time.sleep(2)
+        messg = cli.recv(1024)
+        decodeMsg = pickle.loads(messg)
+        print(decodeMsg)
+
+
 
     elif choice == 4:
         flag = "display"
